@@ -131,26 +131,21 @@ setInterval(() => {
     websites.forEach((site, i) => {
         const delta = (Math.random() - 0.5) * 0.003;
 
-        // 1. Lấy giá trị cuối cùng từ mảng dữ liệu gốc
         const lastAccess      = site.access.at(-1);
         const lastSearch      = site.search.at(-1);
         const lastTransaction = site.transaction.at(-1);
         const lastInteraction = site.interaction.at(-1);
 
-        // 2. Tính toán và chặn số âm bằng Math.max(0, ...)
-        // Sửa lỗi: Dùng đúng tên biến lastAccess, lastSearch...
         const newAccess       = Math.max(0, Number((lastAccess + delta).toFixed(3)));
         const newSearch       = Math.max(0, Number((lastSearch + delta * 8).toFixed(3)));
         const newTransaction  = Math.max(0, Number((lastTransaction + delta * 2).toFixed(3)));
         const newInteraction  = Math.max(0, Number((lastInteraction + delta * 4).toFixed(3)));
 
-        // 3. QUAN TRỌNG: Cập nhật giá trị mới vào mảng gốc để vòng lặp sau có cái để tính tiếp
         site.access.push(newAccess);
         site.search.push(newSearch);
         site.transaction.push(newTransaction);
         site.interaction.push(newInteraction);
 
-        // (Tùy chọn) Giữ mảng gốc không quá dài để nhẹ máy
         if (site.access.length > 50) {
             site.access.shift();
             site.search.shift();
@@ -158,7 +153,6 @@ setInterval(() => {
             site.interaction.shift();
         }
 
-        // 4. Cập nhật biểu đồ (Chart.js)
         const chart = site.chart;
         if (chart) {
             if (chart.data.labels.length >= 10) {
@@ -176,7 +170,6 @@ setInterval(() => {
         }
     });
 
-    // Cập nhật số liệu trên Card nếu đang xem chi tiết
     if (typeof currentIndex !== 'undefined') {
         updateCardData(currentIndex);
     }
