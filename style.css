@@ -1,0 +1,642 @@
+/*-- ====== Google Fonts ====== --*/
+
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+* {
+    font-family: "Ubuntu", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --blue: #2a2185;
+    --blue1: #0000ff;
+    --white: #fff;
+    --gray: #f5f5f5;
+    --black1: #222;
+    --black2: #999;
+    --green: #00ff00;
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;   
+}
+
+.container {
+    position: relative;
+    width: 100%;
+}
+
+
+.navigation {
+    position: fixed;
+    width: 300px;
+    height: 100%;
+    background: var(--blue);
+    border-left: 10px solid var(--blue);
+    transition: 0.5s;
+    overflow: hidden;
+}
+
+.navigation.active {
+    width: 80px;
+}
+
+.navigation ul {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.navigation ul li {
+    position: relative;
+    width: 100%;
+    list-style: none;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+}
+
+.navigation ul li:hover, 
+.navigation ul li.hovered {
+    background: var(--white)
+}
+
+.navigation ul li:nth-child(1) {
+    margin-bottom: 40px;
+    pointer-events: none;
+}
+
+.navigation ul li a {
+    position: relative;
+    display: block;
+    width: 100%;
+    display: flex;
+    text-decoration: none;
+    color: var(--white);
+}
+
+.navigation ul li:hover a,
+.navigation ul li.hovered a {
+    color: var(--blue);
+}
+
+.navigation ul li a .icon {
+    position: relative;
+    display: block;
+    min-width: 60px;
+    height: 60px;
+    line-height: 75px;
+    text-align: center;
+}
+
+.navigation ul li a .icon ion-icon {
+    font-size: 1.75rem;
+}
+
+.navigation ul li a .title {
+    position: relative;
+    display: block;
+    padding: 0 10px;
+    height: 60px;
+    line-height: 60px;
+    text-align: start;
+    white-space: nowrap;
+}
+
+.navigation ul li:hover a::before,
+.navigation ul li.hovered a::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -50px;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border-radius: 50%;
+    box-shadow: 35px 35px 0 10px var(--white);
+    pointer-events: none; 
+}
+
+.navigation ul li:hover a::after,
+.navigation ul li.hovered a::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: -50px;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border-radius: 50%;
+    box-shadow: 35px -35px 0 10px var(--white);
+    pointer-events: none; 
+}
+
+/*================= Main =====================*/
+.main{
+    position: relative;
+    width: calc(100% - 300px);
+    left: 300px;
+    min-height: 100vh;
+    background: var(--white);
+    transition: 0.5s;
+}
+
+.main.active{
+    width: calc(100% - 80px);
+    left: 80px;
+}
+
+.topbar{
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.toggle {
+    position: relative;
+    top: 0;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    background: transparent;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 2.5rem;
+}
+
+.search{
+    position: relative;
+    width: 400px;
+    margin: 0 10px;
+}
+
+.search label {
+    position: relative;
+    width: 100%;
+}
+
+.search label input {
+    width: 100%;
+    height: 40px;
+    padding: 0 40px 0 20px;
+    padding-left: 35px;
+    border: 1px solid var(--black2);
+    border-radius: 20px;
+    background: var(--gray);
+    font-size: 18px;
+    outline: none;
+}
+
+.search label ion-icon {
+    position: absolute;
+    left: 10px;
+    top: 0;
+    font-size: 20px;
+    color: var(--black);
+}
+
+.user {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.user img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/*================= Thẻ =====================*/
+
+.cardBox {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 30px;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.card {
+    position: relative;
+    background: var(--white);
+    padding: 30px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    cursor: pointer;
+    box-shadow: 0 7px 25px rgba(0,0,0,0.08);
+}
+
+.card .numbers {
+    position: relative;
+    font-weight: 500;
+    font-size: 2.5rem;
+    color: var(--blue);
+}
+
+.card .cardName {
+    color: var(--black2);
+    font-size: 1rem;
+    margin-top: 5px;
+}
+
+.card .iconBx {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 3rem;
+    color: var(--black2);
+}
+
+.card:hover {
+    background: var(--blue);
+}
+
+.card:hover .numbers,
+.card:hover .cardName,
+.card:hover .iconBx {
+    color: var(--white);
+}
+
+/*================= Chart =====================*/
+.details {
+    display: flex;
+    gap: 20px; 
+    padding: 20px;
+}
+
+.chart-card {
+    flex: 2; 
+}
+
+.chart-container {
+    display: none;
+    width: 100%;
+    padding: 10px 0; 
+}
+
+.chart-container.active {
+    display: block;
+}
+
+canvas {
+    height: 300px; 
+    background: var(--white);
+    border-radius: 20px;
+    box-shadow: 0 7px 25px rgba(0,0,0,0.08);
+}
+
+.extra-card {
+    flex: 1; 
+    position: relative; 
+}
+
+.extra-space {
+    height: 100%; 
+    width: 100%;
+    padding: 20px;
+    background: var(--gray); 
+    border-radius: 20px;
+    box-shadow: 0 7px 25px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+}
+
+.extra-card .cardHeader {
+    padding: 0 30px 10px;
+    text-align: center;
+}
+
+.extra-card .cardHeader h2 {
+    position: relative;
+    font-weight: 500;
+    font-size: 2.5rem;
+    color: var(--blue);
+    margin-bottom: 10px;
+    transition: color 0.3s;
+}
+
+.extra-card:hover {
+    background: var(--blue); 
+}
+
+.extra-card:hover .cardHeader h2 {
+    color: var(--white); 
+}
+
+.chart-container {
+    display: none; 
+    width: 100%;
+    height: 400px; 
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.chart-container.active {
+    display: block; 
+}
+
+.chart-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 400px;
+}
+
+.chart-card .cardHeader {
+    padding: 0 30px 10px;
+    text-align: center; 
+    
+}
+
+.chart-card .cardHeader h2 {
+    position: relative;
+    font-weight: 500;
+    font-size: 2.5rem;
+    color: var(--blue);
+    margin-bottom: 10px; 
+    transition: color 0.3s; 
+}
+
+.chart-card:hover .cardHeader h2 {
+    color: var(--white); 
+}
+
+/*================= Trang chủ =====================*/
+#home-content {
+    position: relative;
+    padding: 20px;
+    width: 100%;
+}
+
+.home-cardBox {
+    position: relative;
+    padding: 20px;
+    display: grid;
+    width: 100%;
+    grid-gap: 30px;
+    margin: 0 auto;
+    grid-template-columns: 1fr 3fr;
+}
+
+.home-cardBox .home-card1 {
+    position: relative;
+    background: var(--white);
+    height: 400px;
+    padding: 30px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    cursor: pointer;
+    box-shadow: 0 7px 25px rgba(0,0,0,0.08);
+}
+
+.home-cardBox .home-card1 .home-space {
+    position: relative;
+    height: 325px;
+    width: 100%;
+    background-color: var(--white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    box-shadow: 0 7px 25px rgba(0,0,0,0.08);
+}
+
+.home-cardBox .home-card1:hover,
+.home-cardBox .home-card1:hover .sub-title{
+    background: var(--blue);
+    color: var(--white)
+}
+
+
+.home-cardBox .home-card1 .home-space .iconBx #top-logo{
+    top: 20px;
+    bottom: 20px;
+    width: 100%;
+    height: 200px;
+}
+
+.home-cardBox .home-card1 .sub-title {
+    position: relative;
+    top: 15px;
+    font-weight: 600;
+    font-size: 1.25rem;
+    width: 100%;
+    color: var(--blue);
+}
+
+.home-card2 {
+    position: relative;
+    height: 650px;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    box-shadow: 0 7px 25px rgba(0,0,0,0.08);
+}
+
+h3 {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: var(--blue);
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+button {  
+    border-radius: 20px;
+    right: 20px;
+}
+
+button.btn-open-modal {
+    position: absolute;
+    font-size: 14px;
+    padding: 8px 15px;
+    cursor: pointer;
+    color: var(--black1);
+    z-index: 10;
+}
+
+button:hover{
+   background-color: aqua;
+}
+
+.lb-scroll {
+    margin-bottom: 30px;
+    margin-top: 100px; 
+    height:  450px;
+    width: 100%;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+/* Custom Scrollbar cho đẹp */
+.lb-scroll::-webkit-scrollbar { width: 15px; }
+.lb-scroll::-webkit-scrollbar-track { background: var(--gray); border-radius: 10px; }
+.lb-scroll::-webkit-scrollbar-thumb { background: var(--black2); border-radius: 10px; }
+
+.lb-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 10px;
+    border-bottom: 1px dashed var(--black2); 
+    transition: 0.2s;
+    border-radius: 10px;
+}
+
+.lb-item:hover {
+    background: var(--green);
+}
+
+.lb-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.rank-badge {
+    font-weight: 700;
+    color: var(--black2);
+    min-width: 20px;
+    text-align: center;
+}
+
+.tiny-logo {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: contain;
+    border: 1px solid var(--gray);
+    background: var(--white);
+}
+
+.item-traffic {
+    font-weight: 700;
+    color: var(--blue);
+}
+
+/* --- 3. MODAL POPUP (Overlay) --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5); 
+    z-index: 10000; 
+    display: none;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--white);
+    width: 400px;
+    padding: 40px;
+    border-radius: 20px;
+    position: relative;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    animation: popupIn 0.3s ease;
+}
+
+@keyframes popupIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.close-btn {
+    position: absolute;
+    top: 2.25px;
+    right: 15px;
+    font-size: 2.5rem;
+    color: var(--black2);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.close-btn:hover {
+    color: red;
+    border-radius: 50%;
+}
+
+.admin-panel h3{
+    position: relative;
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+.input-group label {
+    position: relative;
+    display: block;
+    margin-bottom: 8px;
+    color: var(--black1);
+    font-weight: 500;
+}
+.input-group input {
+    width: 100%;
+    height: 45px;
+    padding: 0 20px;
+    border: 1px solid var(--black2);
+    border-radius: 20px; 
+    background: var(--gray);
+    font-size: 16px;
+    outline: none;
+    color: var(--black1);
+}
+.input-group input:focus {
+    border-color: var(--blue);
+    background: var(--white);
+}
+
+button.btn-submit {
+    width: 100%;
+    height: 45px;
+    background: var(--blue1);
+    color: var(--white);
+    border: none;
+    border-radius: 20px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    transition: 0.3s;
+}
+.btn-submit:hover {
+    background: #1a1455;
+}
