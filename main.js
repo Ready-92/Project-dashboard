@@ -83,17 +83,27 @@ class MaxHeap {
 
 const trafficHeap = new MaxHeap();
 
-function formatNumber(num) {
-    return num.toFixed(2) + " B"; 
+function formatNumber(numInBillions) {
+    let value = numInBillions * 1000000000;
+
+    if (value >= 1000000000) {
+        return (value / 1000000000).toFixed(2) + " B";
+    } else if (value >= 1000000) {
+        return (value / 1000000).toFixed(2) + " M";
+    } else if (value >= 1000) {
+        return (value / 1000).toFixed(2) + " K";
+    } else {
+        return Math.round(value).toString();
+    }
 }
 
 function updateCardData(index) {
     const site = websites[index];
     if(!site) return;
-    document.getElementById('access-card').querySelector('.numbers').textContent = `${site.access.at(-1).toFixed(2)} B`;
-    document.getElementById('search-card').querySelector('.numbers').textContent = `${site.search.at(-1).toFixed(1)} B`;
-    document.getElementById('transaction-card').querySelector('.numbers').textContent = `${site.transaction.at(-1).toFixed(2)} B`;
-    document.getElementById('interaction-card').querySelector('.numbers').textContent = `${site.interaction.at(-1).toFixed(1)} B`;
+    document.getElementById('access-card').querySelector('.numbers').textContent = formatNumber(site.access.at(-1));
+    document.getElementById('search-card').querySelector('.numbers').textContent = formatNumber(site.search.at(-1));
+    document.getElementById('transaction-card').querySelector('.numbers').textContent = formatNumber(site.transaction.at(-1));
+    document.getElementById('interaction-card').querySelector('.numbers').textContent = formatNumber(site.interaction.at(-1));
 }
 
 function updateHomeUI() {
@@ -129,10 +139,29 @@ function updateHomeUI() {
                         <img class="tiny-logo" src="${web.logo}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3645/3645245.png'">
                         <b>${web.name}</b>
                     </div>
-                    <span class="item-traffic">${formatNumber(web.traffic)}</span>
+                    <div class="lb-right" style="display: flex; align-items: center; gap: 15px;">
+                        <span class="item-traffic">${formatNumber(web.traffic)}</span>
+                        <ion-icon name="trash-outline" 
+                                  style="color: #ff4d4d; cursor: pointer; font-size: 1.2rem;"
+                                  onclick="deleteWebsite('${web.name}')">
+                        </ion-icon>
+                    </div>
                 </div>`;
         });
         listView.innerHTML = html;
+    }
+}
+
+window.deleteWebsite = function(siteName) {
+    if(confirm("Bạn có chắc chắn muốn xóa " + siteName + " khỏi danh sách?")) {
+        const index = websites.findIndex(site => site.name === siteName);
+        if (index > -1) {
+            websites.splice(index, 1);
+            updateHomeUI();
+            if(currentIndex === index) {
+                showHome();
+            }
+        }
     }
 }
 
@@ -219,7 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const updateMetric = (arr, multiplier) => {
                 const last = arr.at(-1);
                 let newVal = last + (delta * multiplier);
-                return Math.max(0, Number(newVal.toFixed(3)));
+                return Math.max(0, Number(newVal.toFixed(9))); 
             };
 
             const newAccess = updateMetric(site.access, 1);
@@ -300,16 +329,14 @@ window.handleAddClick = function() {
         return;
     }
 
-    let trafficVal = parseFloat(trafficRaw);
-    if (trafficVal > 1000) {
-        trafficVal = trafficVal / 1000000000; 
-    }
-
+    let rawNumber = parseFloat(trafficRaw);
+    let trafficVal = rawNumber / 1000000000; 
+   
     const newSite = {
         name: name,
         logo: generateAutoLogo(name),
         access: [trafficVal],
-        search: [trafficVal * 2],
+        search: [trafficVal * 2],       
         transaction: [trafficVal * 0.1],
         interaction: [trafficVal * 5],
         chart: null,
@@ -324,7 +351,7 @@ window.handleAddClick = function() {
 
     updateHomeUI();
     
-    alert(`Đã thêm ${name} vào hệ thống!`);
+    alert(`Đã thêm ${name} thành công!\nLượng truy cập: ${formatNumber(trafficVal)}`);
 };
 
 function highlightAndScrollToSite(index) {
